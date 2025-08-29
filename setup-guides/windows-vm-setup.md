@@ -1,4 +1,4 @@
-# 🖥️ Windows VM Setup in VirtualBox 
+# 🖥️ Windows and Linux VM Setup in VirtualBox 
 
 ## 📌 Objective
 Create a Windows Virtual Machine in VirtualBox for use in a cybersecurity home lab (SOC monitoring, malware analysis, or attack simulations).
@@ -74,6 +74,10 @@ Download from [VirtualBox Downloads](https://www.virtualbox.org/wiki/Downloads)
 ## ✅ Verification
 - VM boots into Windows desktop
 <img width="905" height="562" alt="image" src="https://github.com/user-attachments/assets/e3d33420-2e96-4738-85e8-c1742e63e182" />
+
+-VM boots into Ubuntu
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/3a45220c-cc39-4dbd-a3f0-e6714bcb9487" />
+
 
 ---
 
