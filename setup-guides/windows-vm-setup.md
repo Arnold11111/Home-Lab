@@ -1,4 +1,4 @@
-# 🖥️ Windows VM Setup in VirtualBox (Complete Steps 1–7)
+# 🖥️ Windows VM Setup in VirtualBox 
 
 ## 📌 Objective
 Create a Windows Virtual Machine in VirtualBox for use in a cybersecurity home lab (SOC monitoring, malware analysis, or attack simulations).
