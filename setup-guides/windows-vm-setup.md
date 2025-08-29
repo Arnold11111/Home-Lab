@@ -72,9 +72,8 @@ Download from [VirtualBox Downloads](https://www.virtualbox.org/wiki/Downloads)
 ---
 
 ## ✅ Verification
-- VM boots into Windows desktop  
-- Internet access works  
-- Clipboard/file sharing functional (if enabled)  
+- VM boots into Windows desktop
+<img width="905" height="562" alt="image" src="https://github.com/user-attachments/assets/e3d33420-2e96-4738-85e8-c1742e63e182" />
 
 ---
 
