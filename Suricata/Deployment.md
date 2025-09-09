@@ -69,4 +69,4 @@ Now Suricata is monitoring your network traffic and logging alerts.
 
 ---
 
-👉 Do you want me to move on to **Snort** next, in the same step-by-step format?
+
