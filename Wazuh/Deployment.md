@@ -1,4 +1,4 @@
-#Steps for Deploying:
+# Steps for Deploying:
 
 ---
 
