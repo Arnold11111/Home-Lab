@@ -1,4 +1,4 @@
-Here’s a **GitHub-ready README.md** version of the steps 👇
+Steps:
 
 ---
 
