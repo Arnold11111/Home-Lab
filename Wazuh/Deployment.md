@@ -1,36 +1,36 @@
-Steps:
+Steps for Deployement:
 
 ---
 
-````markdown
-# 🚀 Deploying Wazuh with Docker
+# Deploying Wazuh with Docker
 
 This guide explains how to deploy **Wazuh** using Docker and Docker Compose.
 
 ---
 
-## 📋 Prerequisites
+## Prerequisites
 
-- [Docker](https://docs.docker.com/engine/install/) installed  
-- [Docker Compose](https://docs.docker.com/compose/install/) installed  
-- Minimum recommended resources:  
-  - **4 GB RAM**  
-  - **2 vCPUs**  
+* [Docker](https://docs.docker.com/engine/install/) installed
+* [Docker Compose](https://docs.docker.com/compose/install/) installed
+* Minimum recommended resources:
+
+  * 4 GB RAM
+  * 2 vCPUs
 
 ---
 
-## 📥 Clone the Wazuh Docker Repository
+## Clone the Wazuh Docker Repository
 
 ```bash
 git clone https://github.com/wazuh/wazuh-docker.git
 cd wazuh-docker
-````
+```
 
 The repository contains `docker-compose.yml` files for different deployment options.
 
 ---
 
-## 🛠 Deployment Options
+## Deployment Options
 
 * **Single-node (All-in-One)** → Best for testing or labs
 * **Multi-node (Cluster)** → Best for production environments
@@ -39,7 +39,7 @@ For this guide, we’ll deploy **single-node**.
 
 ---
 
-## ▶️ Deploy Wazuh (Single-node)
+## Deploy Wazuh (Single-node)
 
 Navigate to the directory:
 
@@ -55,13 +55,13 @@ docker-compose up -d
 
 This launches:
 
-* **Wazuh Manager** (server)
-* **Filebeat** (log shipper)
-* **Wazuh Dashboard** (UI, port `5601`)
+* Wazuh Manager (server)
+* Filebeat (log shipper)
+* Wazuh Dashboard (UI, port `5601`)
 
 ---
 
-## 🌐 Access the Dashboard
+## Access the Dashboard
 
 Open your browser:
 
@@ -69,7 +69,7 @@ Open your browser:
 https://localhost:5601
 ```
 
-📌 Default login credentials are stored in:
+Default login credentials are stored in:
 
 ```
 config/wazuh_dashboard_password.txt
@@ -77,7 +77,7 @@ config/wazuh_dashboard_password.txt
 
 ---
 
-## ✅ Verify Running Containers
+## Verify Running Containers
 
 ```bash
 docker ps
@@ -91,9 +91,9 @@ You should see containers like:
 
 ---
 
-## 🖥 Add Agents
+## Add Agents
 
-Install the Wazuh agent on endpoints and connect them to the Wazuh manager (use the **Docker host IP**).
+Install the Wazuh agent on endpoints and connect them to the Wazuh manager (use the Docker host IP).
 
 Example: Install agent on Linux
 
@@ -110,7 +110,8 @@ sudo systemctl start wazuh-agent
 
 ---
 
-## 🎉 Done!
+## Done
 
-You now have Wazuh running in Docker. 🚀
+You now have Wazuh running in Docker.
 
+---
