@@ -103,4 +103,4 @@ tail -f /var/log/suricata/fast.log
 
 ---
 
-👉 Do you want me to continue with **Snort installation (local system)** next?
+
