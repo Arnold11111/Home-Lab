@@ -1,0 +1,72 @@
+# Suricata Deployment
+
+---
+
+# Deploying Suricata with Docker
+
+## Prerequisites
+
+* [Docker](https://docs.docker.com/engine/install/) installed
+* [Docker Compose](https://docs.docker.com/compose/install/) installed
+* Network interface available for packet capture (e.g., `eth0`)
+
+---
+
+## Run Suricata in Docker
+
+Start Suricata container:
+
+```bash
+docker run -it --rm \
+  --net=host \
+  --cap-add=NET_ADMIN \
+  --cap-add=NET_RAW \
+  -v /var/log/suricata:/var/log/suricata \
+  jasonish/suricata:latest -i eth0
+```
+
+Explanation:
+
+* `--net=host` → allows access to host networking
+* `--cap-add=NET_ADMIN` and `--cap-add=NET_RAW` → permissions for packet sniffing
+* `-v /var/log/suricata:/var/log/suricata` → mounts logs to the host
+* `-i eth0` → capture packets on interface `eth0`
+
+---
+
+## Verify Logs
+
+Suricata writes alerts and logs to `/var/log/suricata` on the host:
+
+```bash
+cat /var/log/suricata/fast.log
+```
+
+---
+
+## Configure Rules
+
+If you want to use custom Suricata rules:
+
+1. Place your rules in a directory on the host (e.g., `/opt/suricata/rules/`).
+2. Mount that directory into the container:
+
+```bash
+docker run -it --rm \
+  --net=host \
+  --cap-add=NET_ADMIN \
+  --cap-add=NET_RAW \
+  -v /var/log/suricata:/var/log/suricata \
+  -v /opt/suricata/rules:/etc/suricata/rules \
+  jasonish/suricata:latest -i eth0
+```
+
+---
+
+## Done
+
+Now Suricata is monitoring your network traffic and logging alerts.
+
+---
+
+👉 Do you want me to move on to **Snort** next, in the same step-by-step format?
