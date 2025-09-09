@@ -1,63 +1,113 @@
 # Snort Deployment
+
 ---
 
-# Deploying Snort with Docker
+# Install and Run Snort (Local System)
 
 ## Prerequisites
 
-* [Docker](https://docs.docker.com/engine/install/) installed
-* Network interface available for packet capture (e.g., `eth0`)
+* Linux system (Ubuntu/Debian recommended)
+* Root/sudo access
+* Network interface to monitor (e.g., `eth0`)
 
 ---
 
-## Run Snort in Docker
+## 1. Install Snort
 
-Start Snort container:
+On **Ubuntu/Debian**:
 
 ```bash
-docker run -it --rm \
-  --net=host \
-  --cap-add=NET_ADMIN \
-  --cap-add=NET_RAW \
-  registry.gitlab.com/secure_computing/snort -i eth0 -A console
+sudo apt update
+sudo apt install snort -y
+```
+
+On **CentOS/RHEL**:
+
+```bash
+sudo yum install epel-release -y
+sudo yum install snort -y
+```
+
+During installation on Ubuntu, it may ask for your network interface (e.g., `eth0`).
+
+---
+
+## 2. Verify Installation
+
+```bash
+snort -V
+```
+
+This should display the installed version.
+
+---
+
+## 3. Configure Snort
+
+Main config file:
+
+```
+/etc/snort/snort.conf
+```
+
+Inside, you can:
+
+* Set **HOME\_NET** (your local network, e.g., `192.168.1.0/24`)
+* Add or modify rule paths
+
+---
+
+## 4. Snort Rules
+
+Default rules are usually in:
+
+```
+/etc/snort/rules/
+```
+
+You can also download community rules:
+
+```bash
+wget https://www.snort.org/downloads/community/snort3-community-rules.tar.gz
+tar -xvzf snort3-community-rules.tar.gz
+sudo mv snort3-community-rules/* /etc/snort/rules/
+```
+
+---
+
+## 5. Run Snort
+
+Run in **IDS mode** (live traffic on `eth0`):
+
+```bash
+sudo snort -A console -q -c /etc/snort/snort.conf -i eth0
 ```
 
 Explanation:
 
-* `--net=host` → gives the container direct access to host networking
-* `--cap-add=NET_ADMIN` and `--cap-add=NET_RAW` → permissions to sniff packets
-* `-i eth0` → capture traffic on interface `eth0`
-* `-A console` → prints alerts directly to console
+* `-A console` → print alerts to terminal
+* `-q` → quiet mode (suppresses extra info)
+* `-c` → specify config file
+* `-i` → interface to listen on
 
 ---
 
-## Using Snort with a Configuration File
+## 6. Check Logs
 
-If you have a **snort.conf** and custom rules:
+Snort logs alerts in:
 
-1. Put your configuration and rules in a host directory (e.g., `/opt/snort/`).
-2. Mount the directory inside the container:
+```
+/var/log/snort/
+```
+
+You can tail logs:
 
 ```bash
-docker run -it --rm \
-  --net=host \
-  --cap-add=NET_ADMIN \
-  --cap-add=NET_RAW \
-  -v /opt/snort:/etc/snort \
-  registry.gitlab.com/secure_computing/snort -i eth0 -A console -c /etc/snort/snort.conf
+tail -f /var/log/snort/alert
 ```
 
 ---
 
-## Verify Alerts
-
-* Alerts will display in your console if you used `-A console`.
-* If you configure logging in `snort.conf`, logs will be written to `/var/log/snort/` (can be mounted to the host).
-
----
-
-## Done
-
-Snort is now monitoring your traffic and generating alerts based on your rules.
+✅ Now you have **Snort running locally** in IDS mode.
 
 ---
