@@ -2,71 +2,105 @@
 
 ---
 
-# Deploying Suricata with Docker
+# Install and Run Suricata (Local System)
 
 ## Prerequisites
 
-* [Docker](https://docs.docker.com/engine/install/) installed
-* [Docker Compose](https://docs.docker.com/compose/install/) installed
-* Network interface available for packet capture (e.g., `eth0`)
+* Linux system (Ubuntu/Debian recommended)
+* Root/sudo access
+* Internet connection
 
 ---
 
-## Run Suricata in Docker
+## 1. Install Suricata
 
-Start Suricata container:
+On **Ubuntu/Debian**:
 
 ```bash
-docker run -it --rm \
-  --net=host \
-  --cap-add=NET_ADMIN \
-  --cap-add=NET_RAW \
-  -v /var/log/suricata:/var/log/suricata \
-  jasonish/suricata:latest -i eth0
+sudo apt update
+sudo apt install suricata -y
 ```
 
-Explanation:
-
-* `--net=host` → allows access to host networking
-* `--cap-add=NET_ADMIN` and `--cap-add=NET_RAW` → permissions for packet sniffing
-* `-v /var/log/suricata:/var/log/suricata` → mounts logs to the host
-* `-i eth0` → capture packets on interface `eth0`
-
----
-
-## Verify Logs
-
-Suricata writes alerts and logs to `/var/log/suricata` on the host:
+On **CentOS/RHEL**:
 
 ```bash
-cat /var/log/suricata/fast.log
+sudo yum install epel-release -y
+sudo yum install suricata -y
 ```
 
 ---
 
-## Configure Rules
-
-If you want to use custom Suricata rules:
-
-1. Place your rules in a directory on the host (e.g., `/opt/suricata/rules/`).
-2. Mount that directory into the container:
+## 2. Verify Installation
 
 ```bash
-docker run -it --rm \
-  --net=host \
-  --cap-add=NET_ADMIN \
-  --cap-add=NET_RAW \
-  -v /var/log/suricata:/var/log/suricata \
-  -v /opt/suricata/rules:/etc/suricata/rules \
-  jasonish/suricata:latest -i eth0
+suricata --build-info
+```
+
+This should show Suricata version and compile info.
+
+---
+
+## 3. Configure Suricata
+
+Main config file:
+
+```
+/etc/suricata/suricata.yaml
+```
+
+* Set the network interface to monitor, for example:
+
+```yaml
+af-packet:
+  - interface: eth0
 ```
 
 ---
 
-## Done
+## 4. Update Rules
 
-Now Suricata is monitoring your network traffic and logging alerts.
+Install/update Emerging Threats ruleset:
+
+```bash
+sudo suricata-update
+```
+
+Rules are stored in:
+
+```
+/var/lib/suricata/rules/
+```
 
 ---
 
+## 5. Run Suricata
 
+Run Suricata in IDS mode on interface `eth0`:
+
+```bash
+sudo suricata -c /etc/suricata/suricata.yaml -i eth0
+```
+
+---
+
+## 6. Check Logs
+
+Suricata logs are stored in:
+
+```
+/var/log/suricata/
+```
+
+Quick check:
+
+```bash
+tail -f /var/log/suricata/fast.log
+```
+
+---
+
+✅ Now you have Suricata running locally.
+
+---
+
+👉 Do you want me to continue with **Snort installation (local system)** next?
