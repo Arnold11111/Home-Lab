@@ -114,9 +114,3 @@ sudo systemctl start wazuh-agent
 
 You now have Wazuh running in Docker. 🚀
 
-```
-
----
-
-Do you want me to also include a **ready-to-use `docker-compose.yml` snippet** inside the README so users don’t even need to clone the repo, or should we keep it clean with just the official repo instructions?
-```
